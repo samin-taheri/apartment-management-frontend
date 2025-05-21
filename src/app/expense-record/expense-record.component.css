@@ -1,0 +1,12 @@
+.text-custom-blue {
+  color: #145ac2 !important;
+}
+.btn-custom-blue {
+  background-color: #145ac2 !important;
+  border-color: #145ac2 !important;
+  color: white;
+}
+.btn-custom-blue:hover {
+  background-color: #0f49a0 !important;
+  border-color: #0f49a0 !important;
+}

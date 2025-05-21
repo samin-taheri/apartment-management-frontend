@@ -1,0 +1,56 @@
+<div class="container mt-4">
+  <h2 class="mb-4">Apartment Dashboard</h2>
+
+  <div class="row g-4">
+    <!-- Monthly Dues -->
+    <div class="col-md-4">
+      <div class="chart-card">
+        <h5 class="mb-3">Monthly Dues</h5>
+        <button
+          class="btn btn-custom-blue w-100"
+          (click)="generateDues()"
+          [disabled]="isLoading"
+        >
+          <span
+            *ngIf="isLoading"
+            class="spinner-border spinner-border-sm me-2"
+          ></span>
+          Generate Monthly Dues
+        </button>
+      </div>
+    </div>
+
+    <!-- Record Expense -->
+    <div class="col-md-4">
+      <div class="chart-card">
+        <h5 class="mb-3">Expenses</h5>
+        <a routerLink="/expenses" class="btn btn-outline-secondary w-100">
+          Record New Expense
+        </a>
+      </div>
+    </div>
+
+    <!-- Debtor Flats -->
+    <div class="col-md-4">
+      <div class="chart-card">
+        <h5 class="mb-3">Debtors</h5>
+        <a routerLink="/debtors" class="btn btn-outline-secondary w-100">
+          View Debtor Flats
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pie Chart -->
+  <div class="mt-5 d-flex justify-content-center">
+    <div class="chart-card" style="width: 320px; max-width: 100%">
+      <h5 class="mb-3 text-center text-custom-blue">Income vs Expenses</h5>
+      <canvas
+        baseChart
+        [data]="pieChartData"
+        [options]="pieChartOptions"
+        [type]="'pie'"
+      ></canvas>
+    </div>
+  </div>
+</div>

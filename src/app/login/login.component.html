@@ -1,0 +1,23 @@
+<div class="login-container">
+    <router-outlet></router-outlet>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <h2>Login</h2>
+  
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input id="username" type="text" formControlName="username" />
+      </div>
+  
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input id="password" type="password" formControlName="password" />
+      </div>
+  
+      <button type="submit" [disabled]="loginForm.invalid">Login</button>
+  
+      <div *ngIf="loginError" class="error">
+        {{ loginError }}
+      </div>
+    </form>
+  </div>
+  

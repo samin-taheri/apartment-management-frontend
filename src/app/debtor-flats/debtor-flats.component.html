@@ -1,0 +1,57 @@
+<div>
+  <div class="p-4 border-0">
+    <h3 class="mb-4">Flats with Payments</h3>
+
+    <div *ngIf="debtorFlats.length === 0" class="alert alert-info">
+      No debtor flats found.
+    </div>
+
+    <div *ngIf="debtorFlats.length > 0" class="table-responsive">
+      <table class="table table-bordered align-middle overflow-hidden">
+        <thead class="table-light text-center">
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Furnished</th>
+            <th>City</th>
+            <th>Street</th>
+            <th>Facilities</th>
+            <th>Payments</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let flat of debtorFlats; index as i">
+            <td class="text-center fw-semibold">{{ i + 1 }}</td>
+            <td>{{ flat.name }}</td>
+            <td>{{ flat.type }}</td>
+            <td>{{ flat.furnished ? "Yes" : "No" }}</td>
+            <td>{{ flat.city }}</td>
+            <td>{{ flat.street }}</td>
+            <td>{{ flat.facilities }}</td>
+            <td>
+              <div
+                *ngFor="let payment of flat.payments"
+                class="mb-2 p-2 bg-light rounded"
+              >
+                <div class="d-flex justify-content-between align-items-center">
+                  <span>{{ payment.amount }} ₺</span>
+                  <span *ngIf="payment.paid" class="text-success fw-semibold"
+                    >Paid</span
+                  >
+                  <button
+                    *ngIf="!payment.paid"
+                    class="btn btn-sm btn-custom-blue ms-2"
+                    (click)="accept(payment.id)"
+                  >
+                    Accept
+                  </button>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

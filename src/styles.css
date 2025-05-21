@@ -1,0 +1,59 @@
+/* You can add global styles to this file, and also import other style files */
+@import "bootstrap/dist/css/bootstrap.css";
+
+body {
+  background-color: #f8f9fa;
+  font-family: "Segoe UI", Roboto, sans-serif;
+}
+
+.navbar {
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+}
+
+.list-group-item {
+  transition: background-color 0.2s ease;
+}
+
+.list-group-item:hover {
+  background-color: #e9ecef;
+}
+
+.snackbar-success {
+  background-color: #4caf50 !important;
+  color: #fff !important;
+  font-weight: 500;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.snackbar-error {
+  background-color: #f44336 !important;
+  color: #fff !important;
+  font-weight: 500;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mat-simple-snackbar-action {
+  color: #fff !important;
+  font-weight: bold;
+  border: none;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.mat-simple-snackbar-action:hover {
+  text-decoration: underline;
+  cursor: pointer;
+  background-color: transparent;
+}

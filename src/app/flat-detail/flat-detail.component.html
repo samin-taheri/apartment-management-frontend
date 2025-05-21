@@ -1,0 +1,63 @@
+<div class="container mt-3">
+  <div class="card flat-details-card shadow-sm p-4 mb-5">
+    <div class="d-flex align-items-center justify-content-between mb-4">
+      <div class="d-flex align-items-center gap-3">
+        <button
+          class="btn btn-custom-blue btn-sm d-flex align-items-center"
+          (click)="goBack()"
+        >
+          <span class="material-icons me-1" style="font-size: 24px"
+            >arrow_back</span
+          >
+        </button>
+        <h3 class="mb-0 text-custom-blue">Flat Details</h3>
+      </div>
+    </div>
+
+    <ng-container *ngIf="flat; else noData">
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <p><strong>ID:</strong> {{ flat.id }}</p>
+          <p><strong>Name:</strong> {{ flat.name }}</p>
+          <p><strong>Type:</strong> {{ flat.type }}</p>
+          <p><strong>Furnished:</strong> {{ flat.furnished ? "Yes" : "No" }}</p>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <p>
+            <strong>Facilities:</strong>
+            <span *ngIf="flat.facilities?.length; else none">
+              <span *ngFor="let f of flat.facilities; let i = index">
+                {{ f }}<span *ngIf="i < flat.facilities.length - 1">, </span>
+              </span>
+            </span>
+            <ng-template #none>None</ng-template>
+          </p>
+
+          <p><strong>Street:</strong> {{ flat.street }}</p>
+          <p><strong>City:</strong> {{ flat.city }}</p>
+        </div>
+      </div>
+
+      <app-edit-flat-modal
+        *ngIf="showEditModal"
+        [flat]="flat"
+        (save)="onSave($event)"
+        (close)="onCloseModal()"
+      ></app-edit-flat-modal>
+
+      <div class="mt-2 d-flex gap-2">
+        <button class="btn btn-outline-warning" (click)="editFlat()">
+          Edit
+        </button>
+        <button class="btn btn-outline-danger" (click)="deleteFlat()">
+          Delete
+        </button>
+      </div>
+    </ng-container>
+
+    <ng-template #noData>
+      <p class="text-muted">Flat not found.</p>
+    </ng-template>
+  </div>
+</div>

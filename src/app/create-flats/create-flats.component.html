@@ -1,0 +1,94 @@
+<div class="container mt-3 mb-5">
+  <div class="card shadow rounded-4 p-4 border-0">
+    <h3 class="mb-4 text-custom-blue">Create New Flat</h3>
+
+    <form #flatForm="ngForm" (ngSubmit)="submitForm(flatForm)" novalidate>
+
+      <!-- Flat Name -->
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Flat Name</label>
+        <input
+          type="text"
+          name="name"
+          class="form-control"
+          [(ngModel)]="flat.name"
+          required
+          minlength="3"
+          maxlength="50"
+        />
+        <div *ngIf="flatForm.submitted && flatForm.form.controls['name']?.errors as errors" class="text-danger small mt-1">
+          <div *ngIf="errors['required']">Name is required.</div>
+          <div *ngIf="errors['minlength']">Minimum 3 characters.</div>
+          <div *ngIf="errors['maxlength']">Maximum 50 characters.</div>
+        </div>
+      </div>
+
+      <!-- Type -->
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Flat Type</label>
+        <div class="d-flex flex-wrap gap-3">
+          <div *ngFor="let type of flatTypes" class="form-check form-check-inline">
+            <input type="radio" class="form-check-input" name="type" [(ngModel)]="flat.type" [value]="type" required />
+            <label class="form-check-label">{{ type }}</label>
+          </div>
+        </div>
+        <div *ngIf="flatForm.submitted && flatForm.form.controls['type']?.errors?.['required']" class="text-danger small mt-1">
+          Type is required.
+        </div>
+      </div>
+
+      <!-- Furnished -->
+      <div class="form-check form-switch mb-3">
+        <input type="checkbox" id="furnished" name="furnished" class="form-check-input" [(ngModel)]="flat.furnished" />
+        <label for="furnished" class="form-check-label">Furnished</label>
+      </div>
+
+      <!-- Facilities -->
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Facilities</label>
+        <select multiple name="facilities" class="form-select" [(ngModel)]="flat.facilities" required>
+          <option *ngFor="let facility of facilityOptions" [value]="facility">{{ facility }}</option>
+        </select>
+        <div *ngIf="flatForm.submitted && flatForm.form.controls['facilities']?.errors?.['required']" class="text-danger small mt-1">
+          Please select at least one facility.
+        </div>
+      </div>
+
+      <!-- Address Fields -->
+      <div class="row">
+        <div class="col-md-6 mb-3" ngModelGroup="address">
+          <label class="form-label fw-semibold">Street</label>
+          <input
+            type="text"
+            name="street"
+            class="form-control"
+            [(ngModel)]="flat.address.street"
+            required
+          />
+          <div *ngIf="flatForm.submitted && flatForm.form.get('address.street')?.errors?.['required']" class="text-danger small mt-1">
+            Street is required.
+          </div>
+        </div>
+
+        <div class="col-md-6 mb-3" ngModelGroup="address">
+          <label class="form-label fw-semibold">City</label>
+          <input
+            type="text"
+            name="city"
+            class="form-control"
+            [(ngModel)]="flat.address.city"
+            required
+          />
+          <div *ngIf="flatForm.submitted && flatForm.form.get('address.city')?.errors?.['required']" class="text-danger small mt-1">
+            City is required.
+          </div>
+        </div>
+      </div>
+
+      <!-- Submit -->
+      <div class="text-end">
+        <button type="submit" class="btn btn-custom-blue px-4">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>

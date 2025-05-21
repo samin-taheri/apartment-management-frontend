@@ -1,0 +1,92 @@
+<nav
+  *ngIf="showHeader"
+  class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm"
+>
+  <div class="container-fluid d-flex justify-content-between">
+    <span class="navbar-brand mb-0" style="font-size: 20px; font-weight: 500">
+      Apartment Management System
+    </span>
+    <button class="btn btn-outline-danger btn-sm" (click)="logout()">
+      <span class="material-icons align-middle me-1">logout</span> Logout
+    </button>
+  </div>
+</nav>
+
+<div
+  class="main-container d-flex"
+  style="height: calc(100vh - 56px); overflow-y: auto"
+>
+  <div *ngIf="showHeader" class="bg-light border-end p-3 sidebar">
+    <ul class="nav flex-column">
+      <li class="nav-item mb-2">
+        <a
+          class="nav-link d-flex align-items-center"
+          routerLink="/dashboard"
+          routerLinkActive="active"
+        >
+          <span class="material-icons me-2">dashboard</span> Dashboard
+        </a>
+      </li>
+      <li class="nav-item mb-2">
+        <a
+          class="nav-link d-flex align-items-center"
+          routerLink="/browse"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <span class="material-icons me-2">list</span> Browse Flats
+        </a>
+      </li>
+      <li class="nav-item mb-2">
+        <a
+          class="nav-link d-flex align-items-center"
+          routerLink="/create"
+          routerLinkActive="active"
+        >
+          <span class="material-icons me-2">add</span> Create Flat
+        </a>
+      </li>
+      <li class="nav-item mb-2">
+        <a
+          class="nav-link d-flex align-items-center"
+          routerLink="/add-payment"
+          routerLinkActive="active"
+        >
+          <span class="material-icons me-2">payment</span> Add Payment
+        </a>
+      </li>
+      <li class="nav-item mb-2">
+        <a
+          class="nav-link d-flex align-items-center"
+          routerLink="/debtors"
+          routerLinkActive="active"
+        >
+          <span class="material-icons me-2">money</span> Debtor Flats
+        </a>
+      </li>
+      <li class="nav-item mb-2">
+        <a
+          class="nav-link d-flex align-items-center"
+          routerLink="/expenses"
+          routerLinkActive="active"
+        >
+          <span class="material-icons me-2">receipt_long</span> Record Expense
+        </a>
+      </li>
+      <li class="nav-item mb-2">
+        <a
+          class="nav-link d-flex align-items-center"
+          routerLink="/summary"
+          routerLinkActive="active"
+        >
+          <span class="material-icons me-2">bar_chart</span>
+          Expense Summary
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="flex-grow-1 p-4 overflow-auto content-area">
+    <router-outlet></router-outlet>
+  </div>
+</div>
