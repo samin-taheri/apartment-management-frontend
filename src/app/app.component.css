@@ -33,3 +33,13 @@
   color: #888;
   margin: 0 0 0.5rem 0.5rem;
 }
+
+.btn-outline-custom-blue {
+  color: #145ac2;
+  border-color: #145ac2;
+}
+
+.btn-outline-custom-blue:hover {
+  background-color: #145ac2;
+  color: white;
+}

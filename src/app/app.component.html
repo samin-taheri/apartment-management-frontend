@@ -17,7 +17,7 @@
       </button>
       <!-- Profile Button -->
       <button
-        class="btn btn-outline-primary btn-sm profile-button"
+        class="btn btn-outline-custom-blue btn-sm profile-button"
         (click)="toggleProfile()"
       >
         <span class="material-icons align-middle me-1">account_circle</span>
@@ -150,17 +150,6 @@
 
     <h6 class="sidebar-title mt-1">Announcements</h6>
     <ul class="nav flex-column">
-      <li class="nav-item mb-2">
-        <a
-          class="nav-link d-flex align-items-center"
-          routerLink="/view-announcements"
-          routerLinkActive="active"
-        >
-          <span class="material-icons me-2">campaign</span>
-          View Announcements
-        </a>
-      </li>
-
       <li *ngIf="isAdmin" class="nav-item mb-2">
         <a
           class="nav-link d-flex align-items-center"
@@ -169,6 +158,17 @@
         >
           <span class="material-icons me-2">post_add</span>
           Add announcements
+        </a>
+      </li>
+
+      <li class="nav-item mb-2">
+        <a
+          class="nav-link d-flex align-items-center"
+          routerLink="/view-announcements"
+          routerLinkActive="active"
+        >
+          <span class="material-icons me-2">campaign</span>
+          View Announcements
         </a>
       </li>
     </ul>
