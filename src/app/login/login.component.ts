@@ -13,29 +13,54 @@ export class LoginComponent {
   loginForm: FormGroup;
   loginError: string = '';
 
+  selectedRole: string | null = null;
+
+  toggleRole(role: string) {
+    if (this.selectedRole === role) {
+      this.selectedRole = null;
+    } else {
+      this.selectedRole = role;
+    }
+  }
   constructor(
     private fb: FormBuilder,
     private apartmentService: ApartmentService,
     private router: Router
   ) {
     this.loginForm = this.fb.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required],
+      username: [''],
+      password: [''],
+      role: [''],
     });
   }
   onSubmit() {
-    if (this.loginForm.valid) {
-      const { username, password } = this.loginForm.value;
-      this.apartmentService.login(username, password).subscribe({
-        next: (res) => {
-          console.log('Token received:', res.token);
-          localStorage.setItem('token', res.token); // Save JWT
-          this.router.navigate(['/dashboard']);
-        },
-        error: () => {
-          this.loginError = 'Invalid username or password';
-        },
-      });
+    const { username, password } = this.loginForm.value;
+
+    if (!this.selectedRole) {
+      this.loginError = 'Please select a role.';
+      return;
     }
+
+    this.apartmentService.login(username, password).subscribe({
+      next: (res) => {
+        if (res.role !== this.selectedRole) {
+          this.loginError =
+            'Incorrect role selected. Please choose the correct role.';
+          return;
+        }
+
+        localStorage.setItem('token', res.token);
+        localStorage.setItem('role', res.role);
+        localStorage.setItem('username', username);
+        if (res.role === 'ADMIN') {
+          this.router.navigate(['/dashboard']);
+        } else if (res.role === 'USER') {
+          this.router.navigate(['/user-dashboard']);
+        }
+      },
+      error: (err) => {
+        this.loginError = err.error?.message || 'Login failed.';
+      },
+    });
   }
 }

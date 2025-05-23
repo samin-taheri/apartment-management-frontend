@@ -20,6 +20,17 @@ export interface Flat {
   payments?: Payment[];
 }
 
+export interface AppUser {
+  id?: number;
+  username: string;
+  password: string;
+  email?: string;
+  phone?: string;
+  block?: string;
+  doorNumber?: string;
+  role: 'ADMIN' | 'USER';
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -27,6 +38,8 @@ export class ApartmentService {
   private loginUrl = 'http://localhost:8080/authenticate';
   private apiUrl = 'http://localhost:8080/flat';
   private apiUrl2 = 'http://localhost:8080/api';
+  private apiUrl3 = 'http://localhost:8080/api/users';
+  private apiUrl4 = 'http://localhost:8080/api/announcements';
 
   constructor(private http: HttpClient) {}
 
@@ -115,13 +128,49 @@ export class ApartmentService {
     );
   }
 
-  login(username: string, password: string): Observable<any> {
-    return this.http.post(
-      `${this.loginUrl}`,
-      { username, password },
-      {
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
+  getAllUsers(): Observable<AppUser[]> {
+    return this.http.get<AppUser[]>(`${this.apiUrl3}/all`);
+  }
+
+  getAdmins(): Observable<AppUser[]> {
+    return this.http.get<AppUser[]>(`${this.apiUrl3}/admins`);
+  }
+
+  getRegularUsers(): Observable<AppUser[]> {
+    return this.http.get<AppUser[]>(`${this.apiUrl3}/regular-users`);
+  }
+
+  registerUser(user: AppUser): Observable<AppUser> {
+    return this.http.post<AppUser>(`${this.apiUrl3}/register`, user, {
+      responseType: 'text' as 'json',
+    });
+  }
+
+  getUserByUsername(username: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl3}/username/${username}`);
+  }
+
+  deleteUser(id: number): Observable<string> {
+    return this.http.delete(`${this.apiUrl3}/${id}`, {
+      responseType: 'text',
+    });
+  }
+
+  getAnnouncements(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl4);
+  }
+
+  postAnnouncement(message: string): Observable<any> {
+    return this.http.post(this.apiUrl4, message, { responseType: 'json' });
+  }
+
+  login(
+    username: string,
+    password: string
+  ): Observable<{ token: string; role: string }> {
+    return this.http.post<{ token: string; role: string }>(`${this.loginUrl}`, {
+      username,
+      password,
+    });
   }
 }

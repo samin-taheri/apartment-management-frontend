@@ -1,0 +1,17 @@
+<div class="card-style">
+  <h5 class="text-custom-blue mb-3">
+    <span class="material-icons align-middle me-2">post_add</span>
+    Post New Announcement
+  </h5>
+
+  <textarea
+    class="form-control mb-3"
+    [(ngModel)]="message"
+    rows="3"
+    placeholder="Write your message here..."
+  ></textarea>
+
+  <button class="btn btn-custom-blue" (click)="post()">
+    <span class="material-icons align-middle me-1">send</span> Post Post
+  </button>
+</div>

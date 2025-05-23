@@ -9,6 +9,7 @@ import { ApartmentService, Flat } from '../services/apartment.service';
 })
 export class DebtorFlatsComponent implements OnInit {
   debtorFlats: Flat[] = [];
+  paymentFilter: 'all' | 'paid' | 'unpaid' = 'all';
 
   constructor(private service: ApartmentService) {}
 
@@ -23,5 +24,19 @@ export class DebtorFlatsComponent implements OnInit {
       // Reload or update the state after accepting payment
       this.ngOnInit();
     });
+  }
+
+  shouldShowPayment(payment: any): boolean {
+    return (
+      this.paymentFilter === 'all' ||
+      (this.paymentFilter === 'paid' && payment.paid === true) ||
+      (this.paymentFilter === 'unpaid' && payment.paid === false)
+    );
+  }
+
+  shouldShowFlat(flat: Flat): boolean {
+    return (
+      flat.payments?.some((payment) => this.shouldShowPayment(payment)) ?? false
+    );
   }
 }

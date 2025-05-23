@@ -1,5 +1,5 @@
 .sidebar {
-  width: 240px;
+  width: 245px;
   min-height: 100%;
   background-color: #f8f9fa;
 }
@@ -24,4 +24,12 @@
 
 .nav-link:hover {
   background-color: #f1f1f1;
+}
+
+.sidebar-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #888;
+  margin: 0 0 0.5rem 0.5rem;
 }

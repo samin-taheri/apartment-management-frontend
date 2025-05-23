@@ -1,14 +1,41 @@
 <nav
   *ngIf="showHeader"
-  class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm"
+  class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm position-relative"
 >
-  <div class="container-fluid d-flex justify-content-between">
+  <div
+    class="container-fluid d-flex justify-content-between align-items-center"
+  >
     <span class="navbar-brand mb-0" style="font-size: 20px; font-weight: 500">
       Apartment Management System
     </span>
-    <button class="btn btn-outline-danger btn-sm" (click)="logout()">
-      <span class="material-icons align-middle me-1">logout</span> Logout
-    </button>
+
+    <div class="d-flex align-items-center gap-3">
+      <!-- Logout Button -->
+      <button class="btn btn-outline-danger btn-sm" (click)="logout()">
+        <span class="material-icons align-middle me-1">logout</span>
+        Logout
+      </button>
+      <!-- Profile Button -->
+      <button class="btn btn-outline-primary btn-sm" (click)="toggleProfile()">
+        <span class="material-icons align-middle me-1">account_circle</span>
+        Profile
+      </button>
+    </div>
+  </div>
+
+  <!-- Profile Popup -->
+  <div
+    *ngIf="profileVisible"
+    class="position-absolute end-0 top-100 mt-2 me-4 bg-white rounded shadow p-3"
+    style="width: 240px; z-index: 1000"
+  >
+    <h6 class="text-secondary mb-2"><strong>Profile</strong></h6>
+    <p class="mb-1"><strong>Username:</strong> {{ userProfile.username }}</p>
+    <p class="mb-1"><strong>Role:</strong> {{ userProfile.role }}</p>
+    <p class="mb-1"><strong>Email:</strong> {{ userProfile.email }}</p>
+    <p class="mb-1"><strong>Phone:</strong> {{ userProfile.phone }}</p>
+    <p class="mb-1"><strong>Block:</strong> {{ userProfile.block }}</p>
+    <p class="mb-0"><strong>Door No:</strong> {{ userProfile.doorNumber }}</p>
   </div>
 </nav>
 
@@ -16,9 +43,21 @@
   class="main-container d-flex"
   style="height: calc(100vh - 56px); overflow-y: auto"
 >
-  <div *ngIf="showHeader" class="bg-light border-end p-3 sidebar">
+  <div *ngIf="showHeader" class="bg-light border-end px-2 pt-3 sidebar">
+    <h6 class="sidebar-title">Flats</h6>
     <ul class="nav flex-column">
-      <li class="nav-item mb-2">
+      <!-- User only -->
+      <li *ngIf="isUser" class="nav-item mb-2">
+        <a
+          class="nav-link d-flex align-items-center"
+          routerLink="/user-dashboard"
+          routerLinkActive="active"
+        >
+          <span class="material-icons me-2">dashboard</span> Dashboard
+        </a>
+      </li>
+      <!-- Admin only -->
+      <li *ngIf="isAdmin" class="nav-item mb-2">
         <a
           class="nav-link d-flex align-items-center"
           routerLink="/dashboard"
@@ -27,6 +66,7 @@
           <span class="material-icons me-2">dashboard</span> Dashboard
         </a>
       </li>
+      <!-- For all users -->
       <li class="nav-item mb-2">
         <a
           class="nav-link d-flex align-items-center"
@@ -37,7 +77,8 @@
           <span class="material-icons me-2">list</span> Browse Flats
         </a>
       </li>
-      <li class="nav-item mb-2">
+      <!-- Admin and User -->
+      <li *ngIf="isAdmin || isUser" class="nav-item mb-2">
         <a
           class="nav-link d-flex align-items-center"
           routerLink="/create"
@@ -46,7 +87,11 @@
           <span class="material-icons me-2">add</span> Create Flat
         </a>
       </li>
-      <li class="nav-item mb-2">
+    </ul>
+    <!-- Admin only -->
+    <h6 *ngIf="isAdmin" class="sidebar-title mt-1">Payments</h6>
+    <ul class="nav flex-column">
+      <li *ngIf="isAdmin" class="nav-item mb-2">
         <a
           class="nav-link d-flex align-items-center"
           routerLink="/add-payment"
@@ -55,7 +100,8 @@
           <span class="material-icons me-2">payment</span> Add Payment
         </a>
       </li>
-      <li class="nav-item mb-2">
+      <!-- Admin only -->
+      <li *ngIf="isAdmin" class="nav-item mb-2">
         <a
           class="nav-link d-flex align-items-center"
           routerLink="/debtors"
@@ -64,7 +110,11 @@
           <span class="material-icons me-2">money</span> Debtor Flats
         </a>
       </li>
-      <li class="nav-item mb-2">
+    </ul>
+    <!-- Admin only -->
+    <h6 *ngIf="isAdmin" class="sidebar-title mt-1">Expenses</h6>
+    <ul class="nav flex-column">
+      <li *ngIf="isAdmin" class="nav-item mb-2">
         <a
           class="nav-link d-flex align-items-center"
           routerLink="/expenses"
@@ -73,7 +123,8 @@
           <span class="material-icons me-2">receipt_long</span> Record Expense
         </a>
       </li>
-      <li class="nav-item mb-2">
+      <!-- Admin only -->
+      <li *ngIf="isAdmin" class="nav-item mb-2">
         <a
           class="nav-link d-flex align-items-center"
           routerLink="/summary"
@@ -84,9 +135,60 @@
         </a>
       </li>
     </ul>
+
+    <h6 class="sidebar-title mt-1">Announcements</h6>
+    <ul class="nav flex-column">
+      <li class="nav-item mb-2">
+        <a
+          class="nav-link d-flex align-items-center"
+          routerLink="/view-announcements"
+          routerLinkActive="active"
+        >
+          <span class="material-icons me-2">campaign</span>
+          View Announcements
+        </a>
+      </li>
+
+      <li *ngIf="isAdmin" class="nav-item mb-2">
+        <a
+          class="nav-link d-flex align-items-center"
+          routerLink="/add-announcements"
+          routerLinkActive="active"
+        >
+          <span class="material-icons me-2">post_add</span>
+          Add announcements
+        </a>
+      </li>
+    </ul>
+
+    <!-- Admin-only section -->
+    <h6 *ngIf="isAdmin" class="sidebar-title mt-1">Management</h6>
+    <ul class="nav flex-column">
+      <li *ngIf="isAdmin" class="nav-item mb-2">
+        <a
+          class="nav-link d-flex align-items-center"
+          routerLink="/admins"
+          routerLinkActive="active"
+        >
+          <span class="material-icons me-2">person_add</span>
+          Admin Management
+        </a>
+      </li>
+
+      <li *ngIf="isAdmin" class="nav-item mb-2">
+        <a
+          class="nav-link d-flex align-items-center"
+          routerLink="/users"
+          routerLinkActive="active"
+        >
+          <span class="material-icons me-2">person_add_alt</span>
+          User Management
+        </a>
+      </li>
+    </ul>
   </div>
 
-  <div class="flex-grow-1 p-4 overflow-auto content-area">
+  <div class="flex-grow-1 px-3 pt-4 overflow-auto content-area">
     <router-outlet></router-outlet>
   </div>
 </div>

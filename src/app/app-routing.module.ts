@@ -9,6 +9,11 @@ import { ExpenseRecordComponent } from './expense-record/expense-record.componen
 import { SummaryComponent } from './summary/summary.component';
 import { AddPaymentComponent } from './add-payment/add-payment.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { RegisterAdminComponent } from './register-admin/register-admin.component';
+import { RegisterUserComponent } from './register-user/register-user.component';
+import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
+import { ViewAnnouncementsComponent } from './announcements/view-announcements/view-announcements.component';
+import { PostAnnouncementComponent } from './announcements/post-announcement/post-announcement.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -22,6 +27,11 @@ export const routes: Routes = [
   { path: 'summary', component: SummaryComponent },
   { path: 'add-payment', component: AddPaymentComponent },
   { path: 'dashboard', component: DashboardComponent },
+  { path: 'user-dashboard', component: UserDashboardComponent },
+  { path: 'admins', component: RegisterAdminComponent },
+  { path: 'users', component: RegisterUserComponent },
+  { path: 'view-announcements', component: ViewAnnouncementsComponent },
+  { path: 'add-announcements', component: PostAnnouncementComponent },
 ];
 
 @NgModule({

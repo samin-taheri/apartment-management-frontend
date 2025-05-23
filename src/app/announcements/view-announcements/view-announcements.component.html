@@ -1,0 +1,23 @@
+<div class="card-style">
+  <h5 class="text-custom-blue mb-3">
+    <span class="material-icons align-middle me-2">campaign</span>
+    Latest Announcements
+  </h5>
+
+  <div *ngIf="announcements.length > 0; else noAnnouncements">
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let ann of announcements">
+        <span class="material-icons text-warning me-2 align-middle"
+          >announcement</span
+        >
+        {{ ann.message }}
+        <br />
+        <small class="text-muted">{{ ann.postedAt | date : "short" }}</small>
+      </li>
+    </ul>
+  </div>
+
+  <ng-template #noAnnouncements>
+    <p class="text-muted">No announcements available.</p>
+  </ng-template>
+</div>

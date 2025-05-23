@@ -1,0 +1,17 @@
+<div class="container mt-4">
+  <div class="card shadow p-4 border-0 rounded-4">
+    <h3 class="mb-3 text-custom-blue">Dashboard</h3>
+
+    <div class="mb-4" *ngIf="app.userProfile?.username">
+      <h5>👋 Welcome, {{ app.userProfile.username }}!</h5>
+      <p>
+        Your apartment: Block {{ app.userProfile.block }} / Door
+        {{ app.userProfile.doorNumber }}
+      </p>
+    </div>
+
+    <div *ngIf="!app.userProfile?.username">
+      <p>Loading profile...</p>
+    </div>
+  </div>
+</div>

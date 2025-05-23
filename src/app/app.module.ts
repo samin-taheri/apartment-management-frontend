@@ -23,6 +23,11 @@ import { SummaryComponent } from './summary/summary.component';
 import { AddPaymentComponent } from './add-payment/add-payment.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { RegisterUserComponent } from './register-user/register-user.component';
+import { RegisterAdminComponent } from './register-admin/register-admin.component';
+import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
+import { ViewAnnouncementsComponent } from './announcements/view-announcements/view-announcements.component';
+import { PostAnnouncementComponent } from './announcements/post-announcement/post-announcement.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +42,11 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     SummaryComponent,
     AddPaymentComponent,
     DashboardComponent,
+    RegisterUserComponent,
+    RegisterAdminComponent,
+    UserDashboardComponent,
+    ViewAnnouncementsComponent,
+    PostAnnouncementComponent,
   ],
   imports: [
     BrowserModule,
