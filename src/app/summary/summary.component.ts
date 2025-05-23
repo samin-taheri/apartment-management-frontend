@@ -35,6 +35,8 @@ export class SummaryComponent implements OnInit {
 
   constructor(private service: ApartmentService) {}
 
+  expenses: any[] = [];
+
   ngOnInit(): void {
     this.service.getIncome().subscribe((income) => {
       this.service.getExpenseSummary().subscribe((summary) => {
@@ -46,6 +48,10 @@ export class SummaryComponent implements OnInit {
         this.barChartData.datasets[0].data = [income || 0, totalExpenses];
         this.chart?.update();
       });
+    });
+
+    this.service.getAllExpenses().subscribe((data) => {
+      this.expenses = data;
     });
   }
 }

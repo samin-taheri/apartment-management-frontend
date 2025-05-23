@@ -3,25 +3,45 @@
     <h3 class="mb-4 text-custom-blue">Record New Expense</h3>
 
     <form [formGroup]="expenseForm" (ngSubmit)="onSubmit()">
-      <!-- Title -->
+      <!-- Category -->
       <div class="mb-3">
-        <label class="form-label fw-semibold">Title</label>
-        <input formControlName="title" class="form-control" />
+        <label class="form-label fw-semibold">Category</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="category"
+          placeholder="e.g., Electricity, Maintenance"
+        />
       </div>
 
       <!-- Amount -->
       <div class="mb-3">
         <label class="form-label fw-semibold">Amount</label>
-        <input type="number" formControlName="amount" class="form-control" />
+        <input
+          type="number"
+          class="form-control"
+          formControlName="amount"
+          placeholder="Enter amount"
+        />
+      </div>
+
+      <!-- Note -->
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Note (optional)</label>
+        <textarea
+          class="form-control"
+          formControlName="note"
+          rows="2"
+          placeholder="Any remarks or details"
+        ></textarea>
       </div>
 
       <!-- Date -->
       <div class="mb-3">
         <label class="form-label fw-semibold">Date</label>
-        <input type="date" formControlName="date" class="form-control" />
+        <input type="date" class="form-control" formControlName="date" />
       </div>
 
-      <!-- Submit -->
       <div class="text-end">
         <button type="submit" class="btn btn-custom-blue px-4">Submit</button>
       </div>

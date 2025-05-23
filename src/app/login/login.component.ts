@@ -53,9 +53,13 @@ export class LoginComponent {
         localStorage.setItem('role', res.role);
         localStorage.setItem('username', username);
         if (res.role === 'ADMIN') {
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/dashboard']).then(() => {
+            location.reload();
+          });
         } else if (res.role === 'USER') {
-          this.router.navigate(['/user-dashboard']);
+          this.router.navigate(['/user-dashboard']).then(() => {
+            location.reload();
+          });
         }
       },
       error: (err) => {

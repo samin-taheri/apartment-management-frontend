@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, HostListener, Inject, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { ApartmentService } from './services/apartment.service';
@@ -58,6 +58,17 @@ export class AppComponent implements OnInit {
 
   toggleProfile() {
     this.profileVisible = !this.profileVisible;
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+    const clickedInsideProfile = target.closest(
+      '.profile-button, .profile-popup'
+    );
+    if (!clickedInsideProfile) {
+      this.profileVisible = false;
+    }
   }
 
   logout() {

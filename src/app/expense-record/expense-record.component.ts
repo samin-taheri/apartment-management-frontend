@@ -20,8 +20,9 @@ export class ExpenseRecordComponent {
     const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
 
     this.expenseForm = this.fb.group({
-      title: ['', Validators.required],
+      category: ['', Validators.required],
       amount: [0, [Validators.required, Validators.min(0.01)]],
+      note: [''],
       date: [today, Validators.required],
     });
   }

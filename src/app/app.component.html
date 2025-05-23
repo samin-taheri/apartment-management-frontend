@@ -16,7 +16,10 @@
         Logout
       </button>
       <!-- Profile Button -->
-      <button class="btn btn-outline-primary btn-sm" (click)="toggleProfile()">
+      <button
+        class="btn btn-outline-primary btn-sm profile-button"
+        (click)="toggleProfile()"
+      >
         <span class="material-icons align-middle me-1">account_circle</span>
         Profile
       </button>
@@ -26,7 +29,7 @@
   <!-- Profile Popup -->
   <div
     *ngIf="profileVisible"
-    class="position-absolute end-0 top-100 mt-2 me-4 bg-white rounded shadow p-3"
+    class="position-absolute end-0 top-100 mt-2 me-4 bg-white rounded shadow p-3 profile-popup"
     style="width: 240px; z-index: 1000"
   >
     <h6 class="text-secondary mb-2"><strong>Profile</strong></h6>

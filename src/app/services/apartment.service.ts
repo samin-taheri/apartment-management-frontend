@@ -103,6 +103,12 @@ export class ApartmentService {
     });
   }
 
+  getAllExpenses(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl2}/expenses`, {
+      headers: this.getAuthHeaders(),
+    });
+  }
+
   getExpenseSummary(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl2}/expenses/summary`, {
       headers: this.getAuthHeaders(),
