@@ -1,0 +1,31 @@
+<div class="p-4">
+  <h3 class="mb-4 text-custom-blue">Your Payments</h3>
+
+  <div class="table-responsive">
+    <table class="table align-middle table-bordered mb-0">
+      <thead class="table-light text-center">
+        <tr>
+          <th>ID</th>
+          <th>Amount</th>
+          <th>Due Date</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody class="text-center">
+        <tr *ngFor="let payment of payments">
+          <td>{{ payment.id }}</td>
+          <td>{{ payment.amount }} ₺</td>
+          <td>{{ payment.due_date }}</td>
+          <td>
+            <span
+              class="badge px-3 py-2 rounded-pill"
+              [ngClass]="payment.paid ? 'bg-success' : 'bg-danger'"
+            >
+              {{ payment.paid ? "Paid" : "Unpaid" }}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

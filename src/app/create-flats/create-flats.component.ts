@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ApartmentService, Flat } from '../services/apartment.service';
+import { ApartmentService, AppUser, Flat } from '../services/apartment.service';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastService } from '../../toast.service';
@@ -20,16 +20,26 @@ export class CreateFlatsComponent {
       street: '',
       city: '',
     },
+    user: {
+      username: '',
+    },
   };
 
   facilityOptions = ['WiFi', 'Gym', 'Pool', 'Parking'];
   flatTypes = ['Studio', '1BHK', '2BHK'];
+  users: AppUser[] = [];
 
   constructor(
     private service: ApartmentService,
     private router: Router,
     private toast: ToastService
   ) {}
+
+  ngOnInit(): void {
+    this.service.getAllUsers().subscribe((data) => {
+      this.users = data;
+    });
+  }
 
   submitForm(form: NgForm) {
     if (form.valid) {
@@ -40,6 +50,9 @@ export class CreateFlatsComponent {
         facilities: this.flat.facilities.join(','),
         street: this.flat.address.street,
         city: this.flat.address.city,
+        user: {
+          username: this.flat.user.username,
+        },
       };
 
       this.service.createFlat(flatToSend).subscribe(() => {

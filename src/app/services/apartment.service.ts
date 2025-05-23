@@ -17,6 +17,9 @@ export interface Flat {
   facilities: string | string[];
   street: string;
   city: string;
+  user?: {
+    username: string;
+  };
   payments?: Payment[];
 }
 
@@ -40,6 +43,7 @@ export class ApartmentService {
   private apiUrl2 = 'http://localhost:8080/api';
   private apiUrl3 = 'http://localhost:8080/api/users';
   private apiUrl4 = 'http://localhost:8080/api/announcements';
+  private apiUrl5 = 'http://localhost:8080/api/payments/by-user';
 
   constructor(private http: HttpClient) {}
 
@@ -162,6 +166,10 @@ export class ApartmentService {
 
   postAnnouncement(message: string): Observable<any> {
     return this.http.post(this.apiUrl4, message, { responseType: 'json' });
+  }
+
+  getPaymentsByUsername(username: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl5}/${username}`);
   }
 
   login(

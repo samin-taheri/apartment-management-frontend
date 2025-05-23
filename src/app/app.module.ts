@@ -28,6 +28,7 @@ import { RegisterAdminComponent } from './register-admin/register-admin.componen
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import { ViewAnnouncementsComponent } from './announcements/view-announcements/view-announcements.component';
 import { PostAnnouncementComponent } from './announcements/post-announcement/post-announcement.component';
+import { UserPaymentsComponent } from './user-payments/user-payments.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { PostAnnouncementComponent } from './announcements/post-announcement/pos
     UserDashboardComponent,
     ViewAnnouncementsComponent,
     PostAnnouncementComponent,
+    UserPaymentsComponent,
   ],
   imports: [
     BrowserModule,

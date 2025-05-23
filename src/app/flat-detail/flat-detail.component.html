@@ -19,6 +19,7 @@
         <div class="col-md-6 mb-3">
           <p><strong>ID:</strong> {{ flat.id }}</p>
           <p><strong>Name:</strong> {{ flat.name }}</p>
+          <p><strong>Assigned To:</strong> {{ flat.user?.username || "—" }}</p>
           <p><strong>Type:</strong> {{ flat.type }}</p>
           <p><strong>Furnished:</strong> {{ flat.furnished ? "Yes" : "No" }}</p>
         </div>

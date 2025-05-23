@@ -14,6 +14,7 @@ import { RegisterUserComponent } from './register-user/register-user.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import { ViewAnnouncementsComponent } from './announcements/view-announcements/view-announcements.component';
 import { PostAnnouncementComponent } from './announcements/post-announcement/post-announcement.component';
+import { UserPaymentsComponent } from './user-payments/user-payments.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -32,6 +33,7 @@ export const routes: Routes = [
   { path: 'users', component: RegisterUserComponent },
   { path: 'view-announcements', component: ViewAnnouncementsComponent },
   { path: 'add-announcements', component: PostAnnouncementComponent },
+  { path: 'my-payments', component: UserPaymentsComponent },
 ];
 
 @NgModule({

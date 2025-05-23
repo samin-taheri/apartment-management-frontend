@@ -24,19 +24,25 @@ export class FlatDetailComponent implements OnInit {
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.service.getFlatById(id).subscribe((flat) => {
-      if (!flat) {
+    this.service.getFlatById(id).subscribe({
+      next: (flat) => {
+        console.log('Flat fetched:', flat); // add this
+
+        if (!flat) {
+          this.notFound = true;
+        } else {
+          if (typeof flat.facilities === 'string') {
+            flat.facilities = flat.facilities.split(',');
+          }
+          this.flat = flat;
+        }
+        this.isLoading = false;
+      },
+      error: (err) => {
+        console.error('Error loading flat:', err);
         this.notFound = true;
         this.isLoading = false;
-        return;
-      }
-
-      if (typeof flat.facilities === 'string') {
-        flat.facilities = flat.facilities.split(',');
-      }
-
-      this.flat = flat;
-      this.isLoading = false;
+      },
     });
   }
 

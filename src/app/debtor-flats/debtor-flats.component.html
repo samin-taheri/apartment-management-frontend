@@ -23,6 +23,7 @@
           <tr>
             <th>#</th>
             <th>Name</th>
+            <th>Username</th>
             <th>Type</th>
             <th>Furnished</th>
             <th>City</th>
@@ -37,6 +38,7 @@
               <td class="text-center fw-semibold">{{ i + 1 }}</td>
               <td>{{ flat.name }}</td>
               <td>{{ flat.type }}</td>
+              <td>{{ flat.user?.username || "Unknown" }}</td>
               <td>{{ flat.furnished ? "Yes" : "No" }}</td>
               <td>{{ flat.city }}</td>
               <td>{{ flat.street }}</td>
