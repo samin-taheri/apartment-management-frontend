@@ -70,7 +70,7 @@
         </a>
       </li>
       <!-- For all users -->
-      <li class="nav-item mb-2">
+      <li *ngIf="isAdmin" class="nav-item mb-2">
         <a
           class="nav-link d-flex align-items-center"
           routerLink="/browse"
@@ -81,7 +81,7 @@
         </a>
       </li>
       <!-- Admin and User -->
-      <li *ngIf="isAdmin || isUser" class="nav-item mb-2">
+      <li *ngIf="isAdmin" class="nav-item mb-2">
         <a
           class="nav-link d-flex align-items-center"
           routerLink="/create"
