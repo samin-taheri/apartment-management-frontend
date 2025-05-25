@@ -23,11 +23,12 @@ export class FlatDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    if (localStorage.getItem('role') !== 'ADMIN') {
+      this.router.navigate(['/unauthorized']);
+    }
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.service.getFlatById(id).subscribe({
       next: (flat) => {
-        console.log('Flat fetched:', flat); // add this
-
         if (!flat) {
           this.notFound = true;
         } else {

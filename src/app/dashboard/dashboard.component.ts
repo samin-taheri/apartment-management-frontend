@@ -3,6 +3,7 @@ import { ApartmentService } from '../services/apartment.service';
 import { ChartData, ChartOptions } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { ToastService } from '../../toast.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -34,8 +35,15 @@ export class DashboardComponent {
     ],
   };
 
-  constructor(private service: ApartmentService, private toast: ToastService) {}
+  constructor(
+    private service: ApartmentService,
+    private toast: ToastService,
+    private router: Router
+  ) {}
   ngOnInit(): void {
+    if (localStorage.getItem('role') !== 'ADMIN') {
+      this.router.navigate(['/unauthorized']);
+    }
     this.service.getIncome().subscribe((income) => {
       this.service.getExpenseSummary().subscribe((summary) => {
         const totalExpenses = Object.values(summary).reduce(

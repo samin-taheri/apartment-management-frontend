@@ -15,6 +15,7 @@ import { UserDashboardComponent } from './user-dashboard/user-dashboard.componen
 import { ViewAnnouncementsComponent } from './announcements/view-announcements/view-announcements.component';
 import { PostAnnouncementComponent } from './announcements/post-announcement/post-announcement.component';
 import { UserPaymentsComponent } from './user-payments/user-payments.component';
+import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -34,6 +35,7 @@ export const routes: Routes = [
   { path: 'view-announcements', component: ViewAnnouncementsComponent },
   { path: 'add-announcements', component: PostAnnouncementComponent },
   { path: 'my-payments', component: UserPaymentsComponent },
+  { path: 'unauthorized', component: UnauthorizedComponent },
 ];
 
 @NgModule({

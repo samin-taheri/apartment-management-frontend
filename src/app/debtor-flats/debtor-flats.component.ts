@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApartmentService, Flat } from '../services/apartment.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-debtor-flats',
@@ -11,9 +12,12 @@ export class DebtorFlatsComponent implements OnInit {
   debtorFlats: Flat[] = [];
   paymentFilter: 'all' | 'paid' | 'unpaid' = 'all';
 
-  constructor(private service: ApartmentService) {}
+  constructor(private service: ApartmentService, private router: Router) {}
 
   ngOnInit(): void {
+    if (localStorage.getItem('role') !== 'ADMIN') {
+      this.router.navigate(['/unauthorized']);
+    }
     this.service.getDebtorFlats().subscribe((flats) => {
       this.debtorFlats = flats;
     });

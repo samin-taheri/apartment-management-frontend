@@ -36,6 +36,9 @@ export class CreateFlatsComponent {
   ) {}
 
   ngOnInit(): void {
+    if (localStorage.getItem('role') !== 'ADMIN') {
+      this.router.navigate(['/unauthorized']);
+    }
     this.service.getAllUsers().subscribe((data) => {
       this.users = data;
     });

@@ -44,8 +44,7 @@ export class LoginComponent {
     this.apartmentService.login(username, password).subscribe({
       next: (res) => {
         if (res.role !== this.selectedRole) {
-          this.loginError =
-            'Incorrect role selected. Please choose the correct role.';
+          this.loginError = 'Incorrect username or password.';
           return;
         }
 

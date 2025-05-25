@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApartmentService } from '../services/apartment.service';
 import { ToastService } from '../../toast.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-payment',
@@ -16,7 +17,8 @@ export class AddPaymentComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private service: ApartmentService,
-    private toast: ToastService
+    private toast: ToastService,
+    private router: Router
   ) {
     this.form = this.fb.group({
       flatId: ['', Validators.required],
@@ -26,6 +28,9 @@ export class AddPaymentComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (localStorage.getItem('role') !== 'ADMIN') {
+      this.router.navigate(['/unauthorized']);
+    }
     this.service.getAllFlats().subscribe({
       next: (res) => {
         this.flats = res;

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApartmentService } from '../services/apartment.service';
 import { ToastService } from '../../toast.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-expense-record',
@@ -15,7 +16,8 @@ export class ExpenseRecordComponent {
   constructor(
     private fb: FormBuilder,
     private service: ApartmentService,
-    private toast: ToastService
+    private toast: ToastService,
+    private router: Router
   ) {
     const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
 
@@ -25,6 +27,12 @@ export class ExpenseRecordComponent {
       note: [''],
       date: [today, Validators.required],
     });
+  }
+
+  ngOnInit(): void {
+    if (localStorage.getItem('role') !== 'ADMIN') {
+      this.router.navigate(['/unauthorized']);
+    }
   }
 
   onSubmit() {

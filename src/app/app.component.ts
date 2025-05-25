@@ -18,11 +18,8 @@ export class AppComponent implements OnInit {
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event: any) => {
-        if (event.url === '/login') {
-          this.showHeader = false;
-        } else {
-          this.showHeader = true;
-        }
+        const hiddenRoutes = ['/login', '/unauthorized'];
+        this.showHeader = !hiddenRoutes.includes(event.url);
       });
   }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApartmentService } from '../services/apartment.service';
 import { ToastService } from '../../toast.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register-admin',
@@ -22,9 +23,16 @@ export class RegisterAdminComponent implements OnInit {
     role: 'ADMIN' as 'ADMIN',
   };
 
-  constructor(private service: ApartmentService, private toast: ToastService) {}
+  constructor(
+    private service: ApartmentService,
+    private toast: ToastService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
+    if (localStorage.getItem('role') !== 'ADMIN') {
+      this.router.navigate(['/unauthorized']);
+    }
     this.loadAdmins();
   }
 
