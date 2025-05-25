@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 })
 export class AddPaymentComponent implements OnInit {
   form: FormGroup;
+  submitted = false;
   flats: any[] = [];
 
   constructor(
@@ -34,24 +35,29 @@ export class AddPaymentComponent implements OnInit {
     this.service.getAllFlats().subscribe({
       next: (res) => {
         this.flats = res;
-        if (this.flats.length > 0) {
-          this.form.patchValue({ flatId: this.flats[0].id });
-        }
       },
       error: (err) => console.error('Failed to load flats', err),
     });
   }
 
-  submit() {
-    if (this.form.valid) {
-      const payload = {
-        ...this.form.value,
-        dueDate: this.form.value.due_date,
-      };
-      this.service.createPayment(payload).subscribe(() => {
-        this.toast.showSuccess('Payment created!');
-        this.form.reset();
+  submit(): void {
+    this.submitted = true;
+
+    if (this.form.invalid) return;
+
+    const payload = {
+      ...this.form.value,
+      dueDate: this.form.value.due_date,
+    };
+
+    this.service.createPayment(payload).subscribe(() => {
+      this.toast.showSuccess('Payment created!');
+      this.submitted = false;
+      this.form.reset({
+        flatId: this.flats.length > 0 ? this.flats[0].id : '',
+        amount: 0,
+        due_date: new Date().toISOString().split('T')[0],
       });
-    }
+    });
   }
 }

@@ -2,27 +2,56 @@
   <div class="card shadow rounded-4 p-4 border-0">
     <h3 class="mb-4 text-custom-blue">Add Payment</h3>
 
-    <form [formGroup]="form" (ngSubmit)="submit()">
+    <form [formGroup]="form" (ngSubmit)="submitted = true; submit()">
       <!-- Select Flat -->
       <div class="mb-3">
         <label class="form-label fw-semibold">Select Flat</label>
-        <select class="form-control" formControlName="flatId" required>
+        <select class="form-control" formControlName="flatId">
+          <option value="" disabled>Select a flat</option>
           <option *ngFor="let flat of flats" [value]="flat.id">
             {{ flat.name }}
           </option>
         </select>
+        <div
+          *ngIf="
+            form.get('flatId')?.invalid &&
+            (form.get('flatId')?.touched || submitted)
+          "
+          class="text-danger small mt-1"
+        >
+          Please select a flat.
+        </div>
       </div>
 
       <!-- Amount -->
       <div class="mb-3">
         <label class="form-label fw-semibold">Amount</label>
         <input type="number" class="form-control" formControlName="amount" />
+        <div
+          *ngIf="
+            (form.get('amount')?.touched || submitted) &&
+            form.get('amount')?.errors as errors
+          "
+          class="text-danger small mt-1"
+        >
+          <div *ngIf="errors['required']">Amount is required.</div>
+          <div *ngIf="errors['min']">Amount must be greater than 0.</div>
+        </div>
       </div>
 
       <!-- Due Date -->
       <div class="mb-3">
         <label class="form-label fw-semibold">Due Date</label>
         <input type="date" class="form-control" formControlName="due_date" />
+        <div
+          *ngIf="
+              (form.get('due_date')?.touched || submitted) &&
+              form.get('due_date')?.errors?.['required']
+            "
+          class="text-danger small mt-1"
+        >
+          Due date is required.
+        </div>
       </div>
 
       <!-- Submit Button -->

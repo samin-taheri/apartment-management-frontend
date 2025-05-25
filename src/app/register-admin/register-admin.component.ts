@@ -47,22 +47,24 @@ export class RegisterAdminComponent implements OnInit {
     this.showForm = !this.showForm;
   }
 
-  submitAdmin() {
+  submitAdmin(adminForm: any) {
+    if (adminForm.invalid) {
+      this.toast.showError('Please fill in all required fields correctly.');
+      return;
+    }
+
     const payload = { ...this.newAdmin, role: this.newAdmin.role };
 
     this.service.registerUser(payload).subscribe({
       next: (res: any) => {
         if (typeof res === 'string' && res?.toLowerCase().includes('success')) {
           this.toast.showSuccess(res);
-          this.showForm = false;
-          this.loadAdmins();
-          this.resetForm();
         } else {
           this.toast.showSuccess('Admin registered!');
-          this.showForm = false;
-          this.loadAdmins();
-          this.resetForm();
         }
+        this.showForm = false;
+        this.loadAdmins();
+        this.resetForm();
       },
       error: (err) => {
         console.error('Admin registration failed', err);

@@ -47,7 +47,12 @@ export class RegisterUserComponent implements OnInit {
     this.showForm = !this.showForm;
   }
 
-  submitUser() {
+  submitUser(userForm: any) {
+    if (userForm.invalid) {
+      this.toast.showError('Please fill in all required fields.');
+      return;
+    }
+
     const payload = {
       ...this.newUser,
       role: this.newUser.role as 'ADMIN' | 'USER',
@@ -58,7 +63,7 @@ export class RegisterUserComponent implements OnInit {
         this.toast.showSuccess(res);
         this.showForm = false;
         this.loadUsers();
-        this.resetForm?.();
+        this.resetForm();
       },
       error: (err) => {
         console.error('User registration failed', err);

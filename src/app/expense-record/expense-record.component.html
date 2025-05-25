@@ -2,16 +2,25 @@
   <div class="card shadow rounded-4 p-4 border-0">
     <h3 class="mb-4 text-custom-blue">Record New Expense</h3>
 
-    <form [formGroup]="expenseForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="expenseForm" (ngSubmit)="submitted = true; onSubmit()">
       <!-- Category -->
       <div class="mb-3">
-        <label class="form-label fw-semibold">Category</label>
+        <label class="form-label fw-semibold">Title</label>
         <input
           type="text"
           class="form-control"
           formControlName="category"
           placeholder="e.g., Electricity, Maintenance"
         />
+        <div
+          *ngIf="
+            expenseForm.get('category')?.invalid &&
+            (expenseForm.get('category')?.touched || submitted)
+          "
+          class="text-danger small mt-1"
+        >
+          Category is required.
+        </div>
       </div>
 
       <!-- Amount -->
@@ -23,6 +32,20 @@
           formControlName="amount"
           placeholder="Enter amount"
         />
+        <div
+          *ngIf="
+            expenseForm.get('amount')?.invalid &&
+            (expenseForm.get('amount')?.touched || submitted)
+          "
+          class="text-danger small mt-1"
+        >
+          <div *ngIf="expenseForm.get('amount')?.errors?.['required']">
+            Amount is required.
+          </div>
+          <div *ngIf="expenseForm.get('amount')?.errors?.['min']">
+            Amount must be greater than 0.
+          </div>
+        </div>
       </div>
 
       <!-- Note -->
@@ -40,6 +63,15 @@
       <div class="mb-3">
         <label class="form-label fw-semibold">Date</label>
         <input type="date" class="form-control" formControlName="date" />
+        <div
+          *ngIf="
+            expenseForm.get('date')?.invalid &&
+            (expenseForm.get('date')?.touched || submitted)
+          "
+          class="text-danger small mt-1"
+        >
+          Date is required.
+        </div>
       </div>
 
       <div class="text-end">

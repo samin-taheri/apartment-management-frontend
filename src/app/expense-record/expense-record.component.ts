@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 })
 export class ExpenseRecordComponent {
   expenseForm: FormGroup;
+  submitted = false;
 
   constructor(
     private fb: FormBuilder,
@@ -36,10 +37,12 @@ export class ExpenseRecordComponent {
   }
 
   onSubmit() {
+    this.submitted = true;
     if (this.expenseForm.valid) {
       this.service.createExpense(this.expenseForm.value).subscribe(() => {
         this.toast.showSuccess('Expense recorded!');
         this.expenseForm.reset();
+        this.submitted = false;
       });
     }
   }

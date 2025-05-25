@@ -2,7 +2,7 @@
   <!-- Form Card -->
   <div *ngIf="showForm" class="card shadow rounded-4 p-4 border-0 mb-4">
     <h3 class="mb-4 text-custom-blue">User Management</h3>
-    <form (ngSubmit)="submitUser()" #userForm="ngForm">
+    <form (ngSubmit)="submitUser(userForm)" #userForm="ngForm" novalidate>
       <div class="mb-1">
         <label class="form-label fw-semibold">Username</label>
         <input
@@ -11,7 +11,14 @@
           [(ngModel)]="newUser.username"
           required
         />
+        <div
+          *ngIf="userForm.submitted && userForm.form.controls['username']?.errors?.['required']"
+          class="text-danger small mt-1"
+        >
+          Username is required.
+        </div>
       </div>
+
       <div class="mb-1">
         <label class="form-label fw-semibold">Password</label>
         <input
@@ -21,27 +28,78 @@
           [(ngModel)]="newUser.password"
           required
         />
+        <div
+          *ngIf="userForm.submitted && userForm.form.controls['password']?.errors?.['required']"
+          class="text-danger small mt-1"
+        >
+          Password is required.
+        </div>
       </div>
+
       <div class="mb-1">
         <label class="form-label fw-semibold">Email</label>
-        <input class="form-control" name="email" [(ngModel)]="newUser.email" />
+        <input
+          class="form-control"
+          name="email"
+          [(ngModel)]="newUser.email"
+          required
+        />
+        <div
+          *ngIf="userForm.submitted && userForm.form.controls['email']?.errors?.['required']"
+          class="text-danger small mt-1"
+        >
+          Email is required.
+        </div>
       </div>
+
       <div class="mb-1">
         <label class="form-label fw-semibold">Phone</label>
-        <input class="form-control" name="phone" [(ngModel)]="newUser.phone" />
+        <input
+          class="form-control"
+          name="phone"
+          [(ngModel)]="newUser.phone"
+          required
+        />
+        <div
+          *ngIf="userForm.submitted && userForm.form.controls['phone']?.errors?.['required']"
+          class="text-danger small mt-1"
+        >
+          Phone is required.
+        </div>
       </div>
+
       <div class="mb-1">
         <label class="form-label fw-semibold">Block</label>
-        <input class="form-control" name="block" [(ngModel)]="newUser.block" />
+        <input
+          class="form-control"
+          name="block"
+          [(ngModel)]="newUser.block"
+          required
+        />
+        <div
+          *ngIf="userForm.submitted && userForm.form.controls['block']?.errors?.['required']"
+          class="text-danger small mt-1"
+        >
+          Block is required.
+        </div>
       </div>
+
       <div class="mb-3">
         <label class="form-label fw-semibold">Door Number</label>
         <input
           class="form-control"
           name="doorNumber"
           [(ngModel)]="newUser.doorNumber"
+          required
         />
+        <div
+          *ngIf="userForm.submitted && userForm.form.controls['doorNumber']?.errors?.['required']"
+          class="text-danger small mt-1"
+        >
+          Door Number is required.
+        </div>
       </div>
+
       <input type="hidden" name="role" [(ngModel)]="newUser.role" />
 
       <div class="text-end">

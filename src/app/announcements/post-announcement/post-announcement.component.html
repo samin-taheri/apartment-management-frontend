@@ -4,14 +4,31 @@
     Post New Announcement
   </h5>
 
-  <textarea
-    class="form-control mb-3"
-    [(ngModel)]="message"
-    rows="3"
-    placeholder="Write your message here..."
-  ></textarea>
+  <form [formGroup]="form" (ngSubmit)="post()">
+    <textarea
+      class="form-control mb-2"
+      formControlName="message"
+      rows="3"
+      placeholder="Write your message here..."
+    ></textarea>
 
-  <button class="btn btn-custom-blue" (click)="post()">
-    <span class="material-icons align-middle me-1">send</span> Post
-  </button>
+    <div
+      *ngIf="
+        form.get('message')?.invalid &&
+        (form.get('message')?.touched || submitted)
+      "
+      class="text-danger small mb-2"
+    >
+      <div *ngIf="form.get('message')?.errors?.['required']">
+        Announcement cannot be empty.
+      </div>
+      <div *ngIf="form.get('message')?.errors?.['minlength']">
+        Must be at least 3 characters.
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-custom-blue">
+      <span class="material-icons align-middle me-1">send</span> Post
+    </button>
+  </form>
 </div>

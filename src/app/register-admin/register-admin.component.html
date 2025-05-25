@@ -2,8 +2,8 @@
   <!-- Form Card -->
   <div *ngIf="showForm" class="card shadow rounded-4 p-4 border-0 mb-4">
     <h3 class="mb-4 text-custom-blue">Admin Management</h3>
-    <form (ngSubmit)="submitAdmin()" #adminForm="ngForm">
-      <div class="mb-1">
+    <form #adminForm="ngForm" (ngSubmit)="submitAdmin(adminForm)" novalidate>
+      <div class="mb-2">
         <label class="form-label fw-semibold">Username</label>
         <input
           class="form-control"
@@ -11,8 +11,15 @@
           [(ngModel)]="newAdmin.username"
           required
         />
+        <div
+          *ngIf="adminForm.submitted && !newAdmin.username"
+          class="text-danger small"
+        >
+          Username is required.
+        </div>
       </div>
-      <div class="mb-1">
+
+      <div class="mb-2">
         <label class="form-label fw-semibold">Password</label>
         <input
           type="password"
@@ -21,27 +28,79 @@
           [(ngModel)]="newAdmin.password"
           required
         />
+        <div
+          *ngIf="adminForm.submitted && !newAdmin.password"
+          class="text-danger small"
+        >
+          Password is required.
+        </div>
       </div>
-      <div class="mb-1">
+
+      <div class="mb-2">
         <label class="form-label fw-semibold">Email</label>
-        <input class="form-control" name="email" [(ngModel)]="newAdmin.email" />
+        <input
+          class="form-control"
+          name="email"
+          [(ngModel)]="newAdmin.email"
+          required
+          email
+        />
+        <div
+          *ngIf="adminForm.submitted && !newAdmin.email"
+          class="text-danger small"
+        >
+          Email is required.
+        </div>
       </div>
-      <div class="mb-1">
+
+      <div class="mb-2">
         <label class="form-label fw-semibold">Phone</label>
-        <input class="form-control" name="phone" [(ngModel)]="newAdmin.phone" />
+        <input
+          class="form-control"
+          name="phone"
+          [(ngModel)]="newAdmin.phone"
+          required
+        />
+        <div
+          *ngIf="adminForm.submitted && !newAdmin.phone"
+          class="text-danger small"
+        >
+          Phone is required.
+        </div>
       </div>
-      <div class="mb-1">
+
+      <div class="mb-2">
         <label class="form-label fw-semibold">Block</label>
-        <input class="form-control" name="block" [(ngModel)]="newAdmin.block" />
+        <input
+          class="form-control"
+          name="block"
+          [(ngModel)]="newAdmin.block"
+          required
+        />
+        <div
+          *ngIf="adminForm.submitted && !newAdmin.block"
+          class="text-danger small"
+        >
+          Block is required.
+        </div>
       </div>
+
       <div class="mb-3">
         <label class="form-label fw-semibold">Door Number</label>
         <input
           class="form-control"
           name="doorNumber"
           [(ngModel)]="newAdmin.doorNumber"
+          required
         />
+        <div
+          *ngIf="adminForm.submitted && !newAdmin.doorNumber"
+          class="text-danger small"
+        >
+          Door Number is required.
+        </div>
       </div>
+
       <input type="hidden" name="role" [(ngModel)]="newAdmin.role" />
 
       <div class="text-end">
