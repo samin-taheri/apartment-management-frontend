@@ -222,6 +222,61 @@
 <img src="https://github.com/user-attachments/assets/ed5e75b5-f37d-491c-8f59-fa2689978cc7" alt="Unauthorized Page" width="500"/>
 
 <hr>
+<h2>Architecture Diagram</h2>
+
+<p>The system adopts a secure and scalable <strong>N-Tier architecture</strong>, ensuring clear separation of concerns and maintainability:</p>
+
+<ul>
+  <li><strong>Angular Frontend</strong><br>
+    Handles all user interactions, form inputs, and dynamic UI updates. Sends HTTP requests to the backend.
+  </li>
+  <li><strong>Spring Boot Backend</strong><br>
+    Acts as the core application server, orchestrating the data and logic flow.
+  </li>
+  <li><strong>Controller Layer</strong><br>
+    Receives HTTP requests from the frontend, maps them to endpoints, and delegates to the service layer.
+  </li>
+  <li><strong>Service Layer</strong><br>
+    Contains the core business logic for managing:
+    <ul>
+      <li>Role-based access control</li>
+      <li>Flat registration</li>
+      <li>Payment creation and updates</li>
+      <li>Expense recording</li>
+      <li>Announcement posting</li>
+    </ul>
+  </li>
+  <li><strong>Repository Layer</strong><br>
+    Uses Spring Data JPA to perform CRUD operations on entities such as AppUser, Flat, Payment, Expense, and Announcement.
+  </li>
+  <li><strong>MySQL Database</strong><br>
+    Stores all persistent data with proper indexing and foreign key relationships.
+  </li>
+</ul>
+
+<h3>Architecture Flow</h3>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/b4bec17e-5528-409b-929d-2a2a9bbbdb2b" alt="N-Tier Architecture Diagram" width="800"/>
+</p>
+
+<hr>
+
+<h2>ER Diagram (Entity-Relationship Model)</h2>
+
+<p>The following diagram illustrates the relationships between the core entities in the database.</p>
+
+<h3>Entity Relationships</h3>
+<ul>
+  <li><strong>AppUser (1) → Flat (N)</strong><br>One user (admin or tenant) can be assigned to multiple flats.</li>
+  <li><strong>Flat (1) → Payment (N)</strong><br>Each flat can have many monthly dues (payments).</li>
+  <li><strong>Expense</strong><br>Standalone table for administrative costs like maintenance, repairs, and utilities.</li>
+  <li><strong>Announcement</strong><br>A simple table used to broadcast text-based notices to all users.</li>
+</ul>
+
+<h3>ER Diagram</h3>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/91a26141-d439-4870-bd5a-1ff46738440c" alt="Entity-Relationship Diagram" width="800"/>
+</p>
 
 <h3>Tech Stack</h3>
 <ul>
